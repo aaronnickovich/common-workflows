@@ -1,0 +1,27 @@
+name: Node build
+
+on:
+  workflow_call:
+    inputs:
+      nodeVersion:
+        required: true
+        type: string
+    secrets:
+      test:
+        required: false
+
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Node Registry
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.nodeVersion }}
+      - run: npm ci
+      - run: npm test
+      - run: npm run build

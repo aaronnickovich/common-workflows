@@ -87,8 +87,8 @@ jobs:
         cd terraform
         terraform validate
 
-    - name: Terraform plan
-      id: plan
+    - name: Terraform plan and OPA Check
+      id: OPA
       if: github.event_name == 'pull_request'
       shell: bash
       run: |
@@ -96,8 +96,13 @@ jobs:
         terraform plan --out tfplan.binary
         terraform show -json tfplan.binary > tfplan.json
         opa eval --format pretty --bundle ..\policy\ --input tfplan.json "data.terraform.analysis.allow"
+        allow_check() {
+          if ! opa eval --format pretty --bundle ../policy/ --input tfplan.json "data.terraform.analysis.allow" | grep -q "true"; then
+            exit 1
+          fi
+        }
+        allow_check
       continue-on-error: false
-        # TF_LOG: DEBUG
 
     - name: Terraform apply
       id: apply

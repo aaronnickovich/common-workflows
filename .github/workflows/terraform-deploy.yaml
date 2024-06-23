@@ -44,7 +44,7 @@ jobs:
         aws --version
         aws sts get-caller-identity --region ${{ vars.AWS_REGION }}
         echo "-----------------------------------------------------"
-        aws sts assume-role --role-arn ${{ secrets.AWS_ASSUME_ROLE }} --role-session-name DevopsAdmin-Session --output json
+        aws sts assume-role --role-arn ${{ secrets.AWS_ASSUME_ROLE }} --role-session-name DevopsAdmin-Session --output json >/dev/null 2>&1
         echo "-----------------------------------------------------"
 
     - name: Checkout

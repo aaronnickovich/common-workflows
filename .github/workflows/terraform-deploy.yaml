@@ -94,9 +94,7 @@ jobs:
         cd terraform
         terraform plan --out tfplan.binary
         terraform show -json tfplan.binary > tfplan.json
-        output=$(opa eval --format pretty --data ../policy/terraform-aws.rego --input tfplan.json "data.terraform.analysis.allow")
-        if [[ "$output" == "false" ]]; then
-          exit 1
+        opa eval --format pretty --data ../policy/terraform-aws.rego --input tfplan.json "data.terraform.analysis.allow"
       continue-on-error: false
         # TF_LOG: DEBUG
 

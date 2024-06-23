@@ -58,7 +58,7 @@ jobs:
     - name: Setup OPA
       uses: open-policy-agent/setup-opa@v2
       with:
-        version: latest
+        version: 0.65.0
 
     - name: Terraform init
       id: init

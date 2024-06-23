@@ -102,5 +102,5 @@ jobs:
       id: apply
       run: |
         cd terraform
-        terraform apply ./tfplan.binary -input=false -auto-approve
+        terraform apply -input=false -auto-approve ./tfplan.binary
       continue-on-error: false

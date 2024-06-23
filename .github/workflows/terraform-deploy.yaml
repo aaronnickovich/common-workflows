@@ -78,14 +78,15 @@ jobs:
       shell: bash
       run: |
         cd terraform
-        terraform fmt
+        terraform fmt -check
+      continue-on-error: true
 
     - name: Terraform validate
       id: validate
       shell: bash
       run: |
         cd terraform
-        terraform validate
+        terraform validate -no-color
 
     - name: Terraform plan and OPA Check
       id: plan_and_OPA

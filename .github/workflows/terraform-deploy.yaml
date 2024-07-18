@@ -39,7 +39,6 @@ jobs:
     - name: STS validate session info
       shell: bash
       run: |
-        echo "AWS_ACCESS_KEY_ID = ${{ secrets.AWS_ACCESS_KEY_ID }}"
         echo "AWS Region = ${{ vars.AWS_REGION }}"
         aws --version
         echo "getting access token"
